@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Neha's Glow Log 🌸</title>
+    <style>
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        :root {
+            --pink-grad: linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%);
+            --btn-grad: linear-gradient(90deg, #f8a1a4 0%, #f79d81 100%);
+        }
+
+        body {
+            margin: 0; padding: 0;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: #fff5f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .aura {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 20% 30%, #ffcfd2 0%, transparent 40%),
+                        radial-gradient(circle at 80% 70%, #fde2e4 0%, transparent 40%);
+            z-index: -1;
+            animation: auraMove 10s infinite alternate ease-in-out;
+        }
+
+        @keyframes auraMove {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2) rotate(5deg); }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 35px;
+            padding: 25px;
+            width: 92%; max-width: 380px;
+            box-shadow: 0 25px 50px -12px rgba(248, 161, 164, 0.25);
+            z-index: 10;
+            margin: 20px 0;
+        }
+
+        h1 { text-align: center; color: #4a4a4a; font-size: 22px; margin: 0 0 20px 0; }
+
+        .input-group { margin-bottom: 15px; }
+
+        label { display: block; font-size: 10px; font-weight: 700; color: #666; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* WARNING STYLE */
+        .warning-note {
+            font-size: 9px;
+            color: #d9534f;
+            font-weight: 800;
+            margin-bottom: 5px;
+            display: block;
+            animation: pulseWarning 1.5s infinite;
+        }
+
+        @keyframes pulseWarning {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        input[type="number"], input[type="date"], textarea {
+            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05);
+            background: rgba(255, 255, 255, 0.8); font-size: 15px; outline: none; transition: 0.3s;
+        }
+
+        input[type="date"] { color: #f8a1a4; font-weight: 600; }
+
+        .checklist-row {
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(255, 255, 255, 0.4); padding: 10px 15px;
+            border-radius: 18px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .switch { position: relative; width: 40px; height: 22px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #e0e0e0; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background: var(--btn-grad); }
+        input:checked + .slider:before { transform: translateX(18px); }
+
+        .upload-zone {
+            border: 2px dashed #f8a1a4; border-radius: 18px; padding: 15px;
+            text-align: center; cursor: pointer; background: rgba(248, 161, 164, 0.05);
+        }
+
+        #fileName { 
+            font-size: 10px; color: #f8a1a4; font-weight: 700; margin-top: 5px;
+            word-break: break-all; overflow-wrap: break-word; max-width: 100%;
+        }
+
+        .submit-btn {
+            width: 100%; padding: 16px; border: none; border-radius: 18px;
+            background: var(--btn-grad); color: white; font-size: 16px; font-weight: 700;
+            cursor: pointer; box-shadow: 0 10px 20px -5px rgba(248, 161, 164, 0.4);
+            margin-top: 10px;
+        }
+
+        #status { text-align: center; margin-top: 12px; font-weight: 600; color: #f8a1a4; font-size: 13px; }
+        .confetti { position: fixed; width: 8px; height: 8px; pointer-events: none; z-index: 999; border-radius: 2px; }
+        
+        .date-toggle {
+            text-align: center; font-size: 11px; color: #f8a1a4; 
+            text-decoration: underline; cursor: pointer; margin-bottom: 15px;
+            display: block; font-weight: 600;
+        }
+    </style>
+</head>
+<body onclick="unlockAudio()">
+
+    <div class="aura"></div>
+
+    <div class="glass-card">
+        <h1>Cutie's Log 🌸</h1>
+
+        <form id="glowForm">
+            <div id="dateSection" style="display:none;" class="input-group">
+                <label>📅 Logging Date</label>
+                <input type="date" id="logDate" name="logDate">
+            </div>
+            <span class="date-toggle" id="toggleDateBtn" onclick="toggleDate()">Log for a previous day?</span>
+
+            <div class="input-group">
+                <label>💧 Water Intake (In Litres)</label>
+                <span class="warning-note">⚠️ 3 LITRES SE KM PEEYA TO PITAI 🍑 👋</span>
+                <input type="number" name="water" placeholder="Enter amount..." step="0.1" required>
+            </div>
+
+            <div class="input-group">
+                <label>✨ Daily Checklist</label>
+                <div class="checklist-row">
+                    <span style="font-size: 13px; color: #555;">Ointment Applied</span>
+                    <label class="switch">
+                        <input type="checkbox" id="ointment" onchange="playSparkle()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="checklist-row">
+                    <span style="font-size: 13px; color: #555;">Exercise Done</span>
+                    <label class="switch">
+                        <input type="checkbox" id="exercise" onchange="playPop()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>📸 Progress Photo</label>
+                <div class="upload-zone" onclick="document.getElementById('photoInput').click()">
+                    <div style="font-size: 20px; margin-bottom: 5px;">📷</div>
+                    <div id="fileName">TAP TO UPLOAD</div>
+                    <input type="file" id="photoInput" accept="image/*" hidden required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>💭 Notes</label>
+                <textarea id="notes" rows="2" placeholder="How are you feeling today?"></textarea>
+            </div>
+
+            <button type="submit" id="submitBtn" class="submit-btn">Complete Log 🌸 </button>
+            <div id="status"></div>
+        </form>
+    </div>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbzqt53hPGiNFRT72KrPxef4MN46Bnpwa_g-R9oth4bTGatDN39bi-oEd49I4M3mCd8CWQ/exec';
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        window.onload = () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('logDate').value = today;
+        };
+
+        function toggleDate() {
+            const ds = document.getElementById('dateSection');
+            const btn = document.getElementById('toggleDateBtn');
+            if(ds.style.display === 'none') {
+                ds.style.display = 'block';
+                btn.innerText = "Back to Today";
+            } else {
+                ds.style.display = 'none';
+                btn.innerText = "Log for a previous day?";
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('logDate').value = today;
+            }
+        }
+
+        function unlockAudio() { if (audioCtx.state === 'suspended') audioCtx.resume(); }
+
+        function playSparkle() {
+            if (!document.getElementById('ointment').checked) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.setValueAtTime(1500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(2000, audioCtx.currentTime + 0.1);
+            gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.2);
+        }
+
+        function playPop() {
+            if (!document.getElementById('exercise').checked) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.frequency.setValueAtTime(500, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+        }
+
+        function playSuccess() {
+            createConfetti();
+            const notes = [523, 659, 783, 1046];
+            notes.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime + i * 0.1);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime + i * 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + i * 0.1 + 0.3);
+                osc.connect(gain); gain.connect(audioCtx.destination);
+                osc.start(audioCtx.currentTime + i * 0.1);
+                osc.stop(audioCtx.currentTime + i * 0.1 + 0.3);
+            });
+        }
+
+        function createConfetti() {
+            const colors = ['#f8a1a4', '#ffc3a0', '#ffffff', '#ffd1dc'];
+            for(let i=0; i<40; i++) {
+                const c = document.createElement('div');
+                c.className = 'confetti';
+                c.style.background = colors[Math.floor(Math.random()*colors.length)];
+                c.style.left = '50%'; c.style.top = '50%';
+                document.body.appendChild(c);
+                const a = Math.random()*Math.PI*2;
+                const v = 4 + Math.random()*12;
+                let x = 0, y = 0, vx = Math.cos(a)*v, vy = Math.sin(a)*v;
+                const m = () => {
+                    x += vx; y += vy; vy += 0.5;
+                    c.style.transform = `translate(${x}px, ${y}px) rotate(${x*2}deg)`;
+                    if(y < window.innerHeight) requestAnimationFrame(m); else c.remove();
+                };
+                m();
+            }
+        }
+
+        const photoInput = document.getElementById('photoInput');
+        photoInput.onchange = () => { 
+            if(photoInput.files[0]) document.getElementById('fileName').innerText = photoInput.files[0].name.toUpperCase();
+        };
+
+        document.getElementById('glowForm').onsubmit = e => {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            const status = document.getElementById('status');
+            btn.disabled = true; 
+            btn.innerText = "Sending to Coach... ✨"; // FIXED MISSING QUOTE HERE
+
+            const file = photoInput.files[0];
+            const reader = new FileReader();
+            reader.onload = f => {
+                const payload = {
+                    date: document.getElementById('logDate').value,
+                    water: e.target.water.value,
+                    ointment: document.getElementById('ointment').checked ? "Yes" : "No",
+                    exercise: document.getElementById('exercise').checked ? "Yes" : "No",
+                    notes: document.getElementById('notes').value,
+                    fileData: f.target.result.split(',')[1],
+                    mimeType: file.type,
+                    fileName: file.name
+                };
+
+                fetch(scriptURL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+                .then(() => {
+                    playSuccess();
+                    status.innerText = "Logged successfully for " + payload.date + "! 💖";
+                    e.target.reset();
+                    document.getElementById('fileName').innerText = "TAP TO UPLOAD";
+                    document.getElementById('dateSection').style.display = 'none';
+                    document.getElementById('toggleDateBtn').innerText = "Log for a previous day?";
+                    btn.disabled = false; btn.innerText = "Logged Cutu 🌸";
+                })
+                .catch(() => {
+                    status.innerText = "TRY AGAIN, DARLING! 🎀";
+                    btn.disabled = false; btn.innerText = "Complete Log 🌸";
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+    </script>
+</body>
+</html>
