@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Neha's Glow Log 🌸</title>
+
+    <meta name="apple-mobile-web-app-title" content="Glow Log">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#fff5f5">
+    
+    <link rel="apple-touch-icon" href="https://emojicdn.elk.sh/🌸?style=apple">
+    <link rel="icon" type="image/png" href="https://emojicdn.elk.sh/🌸?style=apple">
+
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
@@ -55,7 +64,7 @@
 
         /* WARNING STYLE */
         .warning-note {
-            font-size: 9px;
+            font-size: 10px;
             color: #d9534f;
             font-weight: 800;
             margin-bottom: 5px;
@@ -65,7 +74,7 @@
 
         @keyframes pulseWarning {
             0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.7; transform: scale(0.98); }
+            50% { opacity: 0.6; transform: scale(0.97); }
             100% { opacity: 1; transform: scale(1); }
         }
 
@@ -112,6 +121,8 @@
             margin-top: 10px;
         }
 
+        .submit-btn:disabled { opacity: 0.7; cursor: not-allowed; }
+
         #status { text-align: center; margin-top: 12px; font-weight: 600; color: #f8a1a4; font-size: 13px; }
         .confetti { position: fixed; width: 8px; height: 8px; pointer-events: none; z-index: 999; border-radius: 2px; }
         
@@ -137,7 +148,7 @@
             <span class="date-toggle" id="toggleDateBtn" onclick="toggleDate()">Log for a previous day?</span>
 
             <div class="input-group">
-                <label>💧 Water Intake (In Litres)</label>
+                <label>💧 Water Intake (Litres)</label>
                 <span class="warning-note">⚠️ 3 LITRES SE KM PEEYA TO PITAI 🍑 👋</span>
                 <input type="number" name="water" placeholder="Enter amount..." step="0.1" required>
             </div>
@@ -180,7 +191,9 @@
     </div>
 
     <script>
+        // PASTE YOUR GOOGLE SCRIPT URL HERE
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzqt53hPGiNFRT72KrPxef4MN46Bnpwa_g-R9oth4bTGatDN39bi-oEd49I4M3mCd8CWQ/exec';
+        
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         
         window.onload = () => {
@@ -230,6 +243,7 @@
 
         function playSuccess() {
             createConfetti();
+            if (navigator.vibrate) navigator.vibrate([100, 30, 100, 30, 200]); // Vibration pattern
             const notes = [523, 659, 783, 1046];
             notes.forEach((freq, i) => {
                 const osc = audioCtx.createOscillator();
@@ -273,7 +287,7 @@
             const btn = document.getElementById('submitBtn');
             const status = document.getElementById('status');
             btn.disabled = true; 
-            btn.innerText = "Sending to Coach... ✨"; // FIXED MISSING QUOTE HERE
+            btn.innerText = "Sending to Coach... ✨";
 
             const file = photoInput.files[0];
             const reader = new FileReader();
