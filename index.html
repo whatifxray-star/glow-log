@@ -162,11 +162,16 @@
                         <span class="slider"></span>
                     </label>
                 </div>
-                <div class="checklist-row">
-                    <span style="font-size: 13px; color: #555;">Exercise Done</span>
-                    <label class="switch">
-                        <input type="checkbox" id="exercise" onchange="playPop()">
-                        <span class="slider"></span>
+                <div class="checklist-row" style="opacity: 0.8; position: relative;">
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 13px; color: #555;">Exercise Done</span>
+                        <span style="font-size: 9px; color: #d9534f; font-weight: 600; margin-top: 2px;">
+                            85% of the time this was not done, so better I disabled it. Thanks!!!
+                        </span>
+                    </div>
+                    <label class="switch" style="cursor: not-allowed;">
+                        <input type="checkbox" id="exercise" disabled>
+                        <span class="slider" style="background-color: #eee;"></span>
                     </label>
                 </div>
             </div>
